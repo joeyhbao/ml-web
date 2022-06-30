@@ -3,13 +3,16 @@ version: '3.8'
 services:
 
   backend:
-    build: ./backend
+    image: hbao34/ml-web-backend:latest
+    restart: always
     command: python app/main.py
 
   frontend:
-    build: ./frontend
+    image: hbao34/ml-web-frontend:latest
+    restart: always
     ports:
-      - "8080:80"
+      - "80:80"
+      - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
@@ -20,3 +23,29 @@ services:
 volumes:
   caddy-data:
   caddy-config:
+
+
+
+#local
+#version: '3.8'
+#
+#services:
+#
+#  backend:
+#    build: ./backend
+#    command: python app/main.py
+#
+#  frontend:
+#    build: ./frontend
+#    ports:
+#      - "8080:80"
+#    volumes:
+#      - ./Caddyfile:/etc/caddy/Caddyfile
+#      - caddy-data:/data
+#      - caddy-config:/config
+#    depends_on:
+#      - backend
+#
+#volumes:
+#  caddy-data:
+#  caddy-config:
